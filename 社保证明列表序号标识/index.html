@@ -1,0 +1,159 @@
+<html lang="utf-8">
+
+<head>
+    <meta charset="utf-8"/>
+    <script src="jquery-1.7.2.min.js"></script>
+    <style>
+        .div{
+            border-top: 2px solid red;
+        }
+        .out{
+            border:1px solid black;
+            height: 1716px;
+            overflow: hidden;
+            float: left;
+            width: 207px;
+        }
+        .con{
+            margin-left:34px;margin-top:355px;
+        }
+    </style>
+</head>
+便于查看社保人员在文档中的所属顺序
+<body >
+<div class="out" style="background-image: url('未标题-1.jpg');background-position: left(12) ">
+    <div id="con1" class="con"></div>
+</div>
+
+<div class="out" style="background-image: url('未标题-2.jpg') ">
+    <div id="con2" class="con"></div>
+</div>
+<div class="out" style="background-image: url('未标题-3.jpg') ">
+    <div id="con3" class="con"></div>
+</div>
+<div class="out" style="background-image: url('未标题-4.jpg') ">
+    <div id="con4" class="con"></div>
+</div>
+<div class="out" style="background-image: url('未标题-5.jpg') ">
+    <div id="con5" class="con"></div>
+</div>
+<div class="out" style="background-image: url('未标题-6.jpg') ">
+    <div id="con6" class="con"></div>
+</div>
+<div class="out" style="background-image: url('未标题-7.jpg') ">
+    <div id="con7" class="con"></div>
+</div>
+<div class="out" style="background-image: url('未标题-8.jpg') ">
+    <div id="con8" class="con"></div>
+</div>
+<div class="out" style="background-image: url('未标题-9.jpg') ">
+    <div id="con9" class="con"></div>
+</div>
+
+<div id="line" style="width:10000px;border: 4px solid yellow;position: absolute;z-index: 1111111111"></div>
+
+<script>
+    function addDiv(title,start,end,opt) {
+        var h=opt.normalh;
+
+        var currenti=0;
+        var lastCount=0;
+        for (var i=start;i<=end;i++){
+            var pset=opt.pages[currenti];
+            $('#con'+i).css('border','1px solid red');
+            $('#con'+i).css('margin-top',pset.margintop);
+            for (var counti=1;counti<=pset.count;counti++){
+                var conheight=(h+0.4+(counti*0.01));
+                if (pset.indexheigh){
+                    $.each(pset.indexheigh,function (pinheightindex,pinheightvalue) {
+                        if (pinheightvalue.index===counti){
+                            console.log(counti,pinheightvalue);
+                            console.log(pinheightvalue);
+                            conheight=pinheightvalue.h;
+                            console.log(conheight)
+                            return;
+                        }
+                    })
+                }
+                $('#con'+i).append('<div style="height:'+conheight+'px;" class="div">'+title+(counti+lastCount)+'</div>');
+            }
+            lastCount+=pset.count;
+            currenti++;
+        }
+    }
+    $(function () {
+        addDiv('2月份',1,3,{
+            pages: [{
+                count:46,
+                margintop: 355,
+                indexheigh: [{index: 15, h: 25}]
+            }, {
+                margintop: 346,
+                count:47,
+                indexheigh: [
+                    {index: 14, h: 25.54},
+                    {index: 44, h: 24.84},
+                    {index:29,h:25.69}
+                ]
+            }, {
+                margintop: 347,
+                count:14,
+                indexheigh: [{index: 12, h: 24.52}]
+            }],
+            normalh: 21
+
+        });
+        addDiv('3月份',4,6,{
+            pages: [{
+                margintop: 355,
+                count:46,
+                indexheigh: [{index: 20, h: 26.6}]
+            }, {
+                margintop: 349,
+                count:47,
+                indexheigh: [
+                    {index: 14, h: 25.54},
+                    {index: 44, h: 24.84},
+                    {index:29,h:25.69}
+                ]
+            }, {
+                margintop: 347,
+                count:15,
+                indexheigh: [{index: 12, h: 24.52}]
+            }],
+            normalh: 21
+
+        });
+        addDiv('4月份',7,9,{
+            pages: [{
+                margintop: 358,
+                count:46,
+                indexheigh: [{index: 20, h: 26.6}]
+            }, {
+                margintop: 349,
+                count:47,
+                indexheigh: [
+                    {index: 14, h: 25.54},
+                    {index: 44, h: 24.84},
+                    {index:29,h:25.69}
+                ]
+            }, {
+                margintop: 353,
+                count:17,
+                indexheigh: [{index: 12, h: 24.52}]
+            }],
+            normalh: 21
+
+        });
+    });
+
+    $(function () {
+        $('body').on('mousemove',function (e) {
+            $('#line').css('top',e.pageY);
+        })
+    })
+</script>
+
+</body>
+
+</html>
